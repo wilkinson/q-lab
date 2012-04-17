@@ -1,5 +1,9 @@
 {
-  "name": "node-example",
-  "version": "0.0.1",
-  "dependencies": {}
+    "name": "node-example",
+    "version": "0.0.1",
+    "dependencies": {},
+    "engines": {
+        "node": "0.6.x",
+        "npm":  "1.0.x"
+    }
 }
