@@ -12,11 +12,9 @@
 
  // Declarations
 
-    var hostname, http, port;
+    var http, port;
 
  // Definitions
-
-    hostname = '0.0.0.0';
 
     http = require('http');
 
@@ -29,7 +27,7 @@
         response.writeHead(200, {'Content-Type': 'text/plain'});
         response.end('Welcome to the lab :-)\n');
         return;
-    }).listen(port, hostname);
+    }).listen(port);
 
  // That's all, folks!
 
