@@ -1,6 +1,6 @@
 //- JavaScript source code
 
-//- web.js ~~
+//- server.js ~~
 //                                                      ~~ (c) SRW, 25 Jul 2012
 
 (function () {
