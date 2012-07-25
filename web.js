@@ -29,7 +29,7 @@
         response.writeHead(200, {'Content-Type': 'text/plain'});
         response.end('Welcome to the lab :-)\n');
         return;
-    });
+    }).listen(port, hostname);
 
  // That's all, folks!
 
