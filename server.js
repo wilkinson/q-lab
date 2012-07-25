@@ -12,9 +12,11 @@
 
  // Declarations
 
-    var hostname, http, port;
+    var fs, hostname, http, port, url;
 
  // Definitions
+
+    fs = require('fs');
 
     hostname = '0.0.0.0';
 
@@ -22,12 +24,16 @@
 
     port = (process.env.PORT !== undefined) ? process.env.PORT : 5000;
 
+    url = require('url');
+
  // Invocations
 
     http.createServer(function (request, response) {
      // This function needs documentation.
-        response.writeHead(200, {'Content-Type': 'text/plain'});
-        response.end('Welcome to the lab :-)\n');
+        var path = 'src' + url.parse(request.url).pathname;
+        fs.createReadStream(path).pipe(response);
+        //response.writeHead(200, {'Content-Type': 'text/plain'});
+        //response.end('Welcome to the lab :-)\n');
         return;
     }).listen(port, hostname);
 
