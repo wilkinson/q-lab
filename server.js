@@ -8,11 +8,11 @@
 
  // Pragmas
 
-    /*jslint indent: 4, maxlen: 80, node: true */
+    /*jslint indent: 4, maxlen: 80, node: true, nomen: true */
 
  // Declarations
 
-    var fs, host, http, port, url;
+    var fs, host, http, mime_types, port, public_html, url;
 
  // Definitions
 
@@ -22,7 +22,17 @@
 
     http = require('http');
 
+    mime_types = {
+        css:    'text/css',
+        html:   'text/html',
+        js:     'text/javascript',
+        json:   'application/json',
+        txt:    'text/plain'
+    };
+
     port = (process.env.PORT !== undefined) ? process.env.PORT : 5000;
+
+    public_html = __dirname + '/public_html';
 
     url = require('url');
 
@@ -35,7 +45,10 @@
         server = http.createServer(function (request, response) {
          // This function needs documentation.
             var path = url.parse(request.url).pathname;
-            fs.readFile(__dirname + '/src' + path, function (err, data) {
+            if (path === '/') {
+                path = '/index.html';
+            }
+            fs.readFile(public_html + path, function (err, data) {
              // This function needs documentation.
                 if (err) {
                     response.writeHead(404, {'Content-Type': 'text/plain'});
@@ -43,7 +56,15 @@
                     response.end();
                     return;
                 }
-                response.writeHead(200, {'Content-Type': 'text/plain'});
+                var extension, re;
+                re = /\.([a-z]+)$/;
+                extension = (re.test(path)) ? re.exec(path)[1] : 'txt';
+                if (mime_types.hasOwnProperty(extension) === false) {
+                    extension = 'txt';
+                }
+                response.writeHead(200, {
+                    'Content-Type': mime_types[extension]
+                });
                 response.end(data);
                 return;
             });
