@@ -2,9 +2,7 @@
     "name": "q-lab",
     "version": "0.0.1",
     "description": "(no description)",
-    "dependencies": {
-        "express": "2.5.x"
-    },
+    "dependencies": {},
     "engines": {
         "node": "0.8.x",
         "npm": "1.1.x"

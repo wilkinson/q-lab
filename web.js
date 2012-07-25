@@ -3,17 +3,38 @@
 //- web.js ~~
 //                                                      ~~ (c) SRW, 25 Jul 2012
 
-var express = require('express');
+(function () {
+    'use strict';
 
-var app = express.createServer(express.logger());
+ // Pragmas
 
-app.get('/', function (request, response) {
-    response.send('Hello World!');
-});
+    /*jslint indent: 4, maxlen: 80, node: true */
 
-var port = process.env.PORT || 5000;
-app.listen(port, function () {
-    console.log("Listening on " + port);
-});
+ // Declarations
+
+    var hostname, http, port;
+
+ // Definitions
+
+    hostname = '0.0.0.0';
+
+    http = require('http');
+
+    port = process.env.hasOwnProperty('PORT') ? process.env.PORT : 5000;
+
+ // Invocations
+
+    http.createServer(function (request, response) {
+     // This function needs documentation.
+        response.writeHead(200, {'Content-Type': 'text/plain'});
+        response.end('Welcome to the lab :-)\n');
+        return;
+    });
+
+ // That's all, folks!
+
+    return;
+
+}());
 
 //- vim:set syntax=javascript:
