@@ -12,13 +12,13 @@
 
  // Declarations
 
-    var fs, hostname, http, port, url;
+    var fs, host, http, port, url;
 
  // Definitions
 
     fs = require('fs');
 
-    hostname = '0.0.0.0';
+    host = (process.env.IP !== undefined) ? process.env.IP : '0.0.0.0';
 
     http = require('http');
 
@@ -28,14 +28,39 @@
 
  // Invocations
 
-    http.createServer(function (request, response) {
-     // This function needs documentation.
-        var path = 'src' + url.parse(request.url).pathname;
-        fs.createReadStream(path).pipe(response);
-        //response.writeHead(200, {'Content-Type': 'text/plain'});
-        //response.end('Welcome to the lab :-)\n');
+    (function () {
+
+        var server;
+
+        server = http.createServer(function (request, response) {
+         // This function needs documentation.
+            var path = url.parse(request.url).pathname;
+            fs.readFile(__dirname + '/src' + path, function (err, data) {
+             // This function needs documentation.
+                if (err) {
+                    response.writeHead(404, {'Content-Type': 'text/plain'});
+                    response.write('"' + path + '" not found.');
+                    response.end();
+                    return;
+                }
+                response.writeHead(200, {'Content-Type': 'text/plain'});
+                response.end(data);
+                return;
+            });
+            return;
+        });
+
+        server.on('error', function (err) {
+         // This function needs documentation.
+            console.error('Error:', err);
+            return;
+        });
+
+        server.listen(port, host);
+
         return;
-    }).listen(port, hostname);
+
+    }());
 
  // That's all, folks!
 
