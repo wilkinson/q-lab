@@ -12,21 +12,23 @@
 
  // Prerequisites
 
+    if (Object.prototype.hasOwnProperty('Q') === false) {
+        throw new Error('Method Q is missing.');
+    }
+
  // Declarations
 
+    var Q;
+
  // Definitions
+
+    Q = Object.prototype.Q;
 
  // Out-of-scope definitions
 
  // Invocations
 
-    (function () {
-
-     // (placeholder)
-
-        return;
-
-    }());
+    Q.lib('https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js');
 
  // That's all, folks!
 
