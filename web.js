@@ -12,13 +12,15 @@
 
  // Declarations
 
-    var http, port;
+    var hostname, http, port;
 
  // Definitions
 
+    hostname = '0.0.0.0';
+
     http = require('http');
 
-    port = process.env.hasOwnProperty('PORT') ? process.env.PORT : 5000;
+    port = (process.env.PORT !== undefined) ? process.env.PORT : 5000;
 
  // Invocations
 
@@ -27,7 +29,7 @@
         response.writeHead(200, {'Content-Type': 'text/plain'});
         response.end('Welcome to the lab :-)\n');
         return;
-    }).listen(port);
+    }).listen(port, hostname);
 
  // That's all, folks!
 
