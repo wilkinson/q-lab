@@ -48,6 +48,11 @@
             chartType: 'LineChart'
         });
         wrapper.draw();
+        $('#edit-button').click(function () {
+         // This function needs documentation.
+            open_editor();
+            return;
+        });
         return;
     };
 
