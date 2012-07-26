@@ -31,20 +31,46 @@
         global._gaq = [];
     }
 
- // Google Analytics
-
     global._gaq.push(['_setAccount', 'UA-33661349-1']);
     global._gaq.push(['_setDomainName', 'qmachine.org']);
     global._gaq.push(['_trackPageview']);
 
     global.window.onload = function (evt) {
      // This function needs documentation.
+        var g_analytics, g_loader;
         if (global.location.protocol === 'https:') {
-            Q.lib('https://ssl.google-analytics.com/ga.js');
+            g_analytics = Q.lib('https://ssl.google-analytics.com/ga.js');
         } else {
-            Q.lib('http://www.google-analytics.com/ga.js');
+            g_analytics = Q.lib('http://www.google-analytics.com/ga.js');
         }
-        Q.lib('//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js');
+        g_loader = Q.lib('//www.google.com/jsapi');
+        g_analytics.onerror = g_loader.onerror = function (message) {
+         // This function needs documentation.
+            console.error('Error:', message);
+            return;
+        };
+        g_loader.onready = function (evt) {
+         // This function needs documentation.
+            if (global.hasOwnProperty('google') === false) {
+                return evt.stay('Awaiting "google" object ...');
+            }
+            global.google.load({
+                modules: [
+                    {
+                        name: 'jquery',
+                        version: '1.7.2'
+                    },
+                    {
+                        name: 'visualization',
+                        version: '1',
+                        packages: [
+                            'charteditor'
+                        ]
+                    }
+                ]
+            });
+            return evt.exit();
+        };
         return;
     };
 
