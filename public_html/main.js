@@ -8,7 +8,7 @@
 
  // Pragmas
 
-    /*jslint indent: 4, maxlen: 80, nomen: true */
+    /*jslint devel: true, indent: 4, maxlen: 80, nomen: true */
 
  // Prerequisites
 
@@ -82,7 +82,7 @@
                     }
                 ]
             }));
-            temp = Q.lib('//www.google.com/jsapi?autoload=' + options;
+            temp = Q.lib('//www.google.com/jsapi?autoload=' + options);
             temp.onerror = function (message) {
              // This function needs documentation.
                 return evt.fail(message);
