@@ -38,23 +38,36 @@
     global.window.onload = function (evt) {
      // This function needs documentation.
         var g_analytics, g_loader;
-        if (global.location.protocol === 'https:') {
-            g_analytics = Q.lib('https://ssl.google-analytics.com/ga.js');
-        } else {
-            g_analytics = Q.lib('http://www.google-analytics.com/ga.js');
-        }
-        g_loader = Q.lib('//www.google.com/jsapi');
+        g_analytics = Q.avar();
+        g_loader = Q.avar();
         g_analytics.onerror = g_loader.onerror = function (message) {
          // This function needs documentation.
             console.error('Error:', message);
             return;
         };
+        g_analytics.onready = function (evt) {
+         // This function needs documentation.
+            var temp;
+            if (global.location.protocol === 'https:') {
+                temp = Q.lib('https://ssl.google-analytics.com/ga.js');
+            } else {
+                temp = Q.lib('http://www.google-analytics.com/ga.js');
+            }
+            temp.onerror = function (message) {
+             // This function needs documentation.
+                return evt.fail(message);
+            };
+            temp.onready = function (temp_evt) {
+             // This function needs documentation.
+                temp_evt.exit();
+                return evt.exit();
+            };
+            return;
+        };
         g_loader.onready = function (evt) {
          // This function needs documentation.
-            if (global.hasOwnProperty('google') === false) {
-                return evt.stay('Awaiting "google" object ...');
-            }
-            global.google.load({
+            var options, temp;
+            options = global.encodeURI(JSON.stringify({
                 modules: [
                     {
                         name: 'jquery',
@@ -68,8 +81,18 @@
                         ]
                     }
                 ]
-            });
-            return evt.exit();
+            }));
+            temp = Q.lib('//www.google.com/jsapi?autoload=' + options;
+            temp.onerror = function (message) {
+             // This function needs documentation.
+                return evt.fail(message);
+            };
+            temp.onready = function (temp_evt) {
+             // This function needs documentation.
+                temp_evt.exit();
+                return evt.exit();
+            };
+            return;
         };
         return;
     };
