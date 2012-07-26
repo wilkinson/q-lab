@@ -18,11 +18,43 @@
 
  // Declarations
 
-    var Q;
+    var Q, draw_sample_chart;
 
  // Definitions
 
     Q = Object.prototype.Q;
+
+    draw_sample_chart = function () {
+     // This function needs documentation.
+        var d_url, gviz, init, open_editor, wrapper;
+        d_url = 'https://spreadsheets.google.com/spreadsheet/tq' +
+                '?key=tnxuU73jT7eIL-aZke85e3A&pub=1&range=A1:E13';
+        gviz = global.google.visualization;
+        init = function () {
+         // This function needs documentation.
+            wrapper = new gviz.ChartWrapper({
+                dataSourceUrl: d_url,
+                containerId: 'visualization',
+                chartType: 'LineChart'
+            });
+            wrapper.draw();
+            return;
+        };
+        open_editor = function () {
+         // Handler for the "Open Editor" button.
+            var editor = new gviz.ChartEditor();
+            gviz.events.addListener(editor, 'ok', function () {
+             // This function needs documentation.
+                wrapper = editor.getChartWrapper();
+                wrapper.draw(global.document.getElementById('visualization'));
+                return;
+            });
+            editor.openDialog(wrapper);
+            return;
+        };
+        init();
+        return;
+    };
 
  // Out-of-scope definitions
 
@@ -37,12 +69,16 @@
 
     global.window.onload = function (evt) {
      // This function needs documentation.
-        var g_analytics, g_loader;
+        var first, g_analytics, g_loader;
+        first = true;
         g_analytics = Q.avar();
-        g_loader = Q.lib('//www.google.com/jsapi');
+        g_loader = Q.avar();
         g_analytics.onerror = g_loader.onerror = function (message) {
          // This function needs documentation.
-            console.error('Error:', message);
+            if (first === true) {
+                first = false;
+                console.error('Error:', message);
+            }
             return;
         };
         g_analytics.onready = function (evt) {
@@ -66,26 +102,12 @@
         };
         g_loader.onready = function (evt) {
          // This function needs documentation.
-            if (global.hasOwnProperty('google') === false) {
-                return evt.stay('Awaiting the "google" object ...');
+            if ((global.google.hasOwnProperty('visualization') === false) ||
+                    (global.hasOwnProperty('jQuery') === false)) {
+             // This would be very unexpected!
+                return evt.stay('Awaiting results from Google Loader ...');
             }
-            global.google.load('jquery', '1.7.2');
-            global.google.load('visualization', '1', {
-                packages: [
-                    'charteditor'
-                ]
-            });
-            return evt.exit();
-        };
-        g_loader.onready = function (evt) {
-         // This function needs documentation.
-            if (global.hasOwnProperty('jQuery') === false) {
-                return evt.stay('Awaiting jQuery ...');
-            }
-            if (global.google.hasOwnProperty('visualization') === false) {
-                return evt.stay('Awaiting visualization module ...');
-            }
-            console.log('Welcome to the Lab :-)');
+            draw_sample_chart();
             return evt.exit();
         };
         return;

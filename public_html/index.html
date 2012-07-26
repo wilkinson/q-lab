@@ -1,22 +1,29 @@
 <!DOCTYPE html>
 <!--
     index.html ~~
-                                                        ~~ (c) SRW, 25 Jul 2012
+                                                        ~~ (c) SRW, 26 Jul 2012
 -->
 <html lang="en">
   <head>
     <meta charset="utf-8"/>
     <meta name="author" content="Sean Wilkinson"/>
     <title>QM: Lab</title>
+    <script src="//www.google.com/jsapi"></script>
+    <script>
+        google.load('jquery', '1.7');
+        google.load('visualization', '1', {
+            packages: [
+                'charteditor'
+            ]
+        });
+    </script>
     <link rel="stylesheet" href="./style.css"/>
     <link rel="shortcut icon" href="//qmachine.org/favicon.ico"/>
   </head>
   <body>
     <noscript>This page requires JavaScript.</noscript>
     <h1>QMachine Lab</h1>
-    <div>
-      (under construction)
-    </div>
+    <div id='visualization' style="width:600px;height:400px">
     <script src="//qmachine.org/q.js"></script>
     <script src="./main.js"></script>
   </body>
