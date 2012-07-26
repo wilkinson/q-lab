@@ -1,7 +1,7 @@
 //- JavaScript source code
 
 //- main.js ~~
-//                                                      ~~ (c) SRW, 25 Jul 2012
+//                                                      ~~ (c) SRW, 26 Jul 2012
 
 (function (global) {
     'use strict';
@@ -37,13 +37,16 @@
     global._gaq.push(['_setDomainName', 'qmachine.org']);
     global._gaq.push(['_trackPageview']);
 
-    if (global.location.protocol === 'https:') {
-        Q.lib('https://ssl.google-analytics.com/ga.js');
-    } else {
-        Q.lib('http://www.google-analytics.com/ga.js');
-    }
-
-    Q.lib('//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js');
+    global.window.onload = function (evt) {
+     // This function needs documentation.
+        if (global.location.protocol === 'https:') {
+            Q.lib('https://ssl.google-analytics.com/ga.js');
+        } else {
+            Q.lib('http://www.google-analytics.com/ga.js');
+        }
+        Q.lib('//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js');
+        return;
+    };
 
  // That's all, folks!
 
