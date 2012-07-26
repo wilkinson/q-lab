@@ -1,7 +1,7 @@
 //- JavaScript source code
 
 //- server.js ~~
-//                                                      ~~ (c) SRW, 25 Jul 2012
+//                                                      ~~ (c) SRW, 26 Jul 2012
 
 (function () {
     'use strict';
@@ -25,6 +25,7 @@
     mime_types = {
         css:    'text/css',
         html:   'text/html',
+        ico:    'image/x-icon',
         js:     'text/javascript',
         json:   'application/json',
         txt:    'text/plain'

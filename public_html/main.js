@@ -26,20 +26,10 @@
 
     draw_sample_chart = function () {
      // This function needs documentation.
-        var d_url, gviz, init, open_editor, wrapper;
+        var d_url, gviz, open_editor, wrapper;
         d_url = 'https://spreadsheets.google.com/spreadsheet/tq' +
                 '?key=tnxuU73jT7eIL-aZke85e3A&pub=1&range=A1:E13';
         gviz = global.google.visualization;
-        init = function () {
-         // This function needs documentation.
-            wrapper = new gviz.ChartWrapper({
-                dataSourceUrl: d_url,
-                containerId: 'visualization',
-                chartType: 'LineChart'
-            });
-            wrapper.draw();
-            return;
-        };
         open_editor = function () {
          // Handler for the "Open Editor" button.
             var editor = new gviz.ChartEditor();
@@ -52,7 +42,12 @@
             editor.openDialog(wrapper);
             return;
         };
-        init();
+        wrapper = new gviz.ChartWrapper({
+            dataSourceUrl: d_url,
+            containerId: 'visualization',
+            chartType: 'LineChart'
+        });
+        wrapper.draw();
         return;
     };
 
@@ -82,7 +77,7 @@
             return;
         };
         g_analytics.onready = function (evt) {
-         // This function needs documentation.
+         // This function loads Google Analytics.
             var temp;
             if (global.location.protocol === 'https:') {
                 temp = Q.lib('https://ssl.google-analytics.com/ga.js');
@@ -101,7 +96,8 @@
             return;
         };
         g_loader.onready = function (evt) {
-         // This function needs documentation.
+         // This function draws a sample chart if and only if the imports from
+         // Google Loader have loaded successfully.
             if ((global.google.hasOwnProperty('visualization') === false) ||
                     (global.hasOwnProperty('jQuery') === false)) {
              // This would be very unexpected!

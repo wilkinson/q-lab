@@ -21,4 +21,11 @@ div {
 
 }
 
+#visualization {
+
+    height: 400px;
+    width: 600px;
+
+}
+
 /*- vim:set syntax=css: */
