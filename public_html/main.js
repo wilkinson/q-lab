@@ -39,7 +39,7 @@
      // This function needs documentation.
         var g_analytics, g_loader;
         g_analytics = Q.avar();
-        g_loader = Q.avar();
+        g_loader = Q.lib('//www.google.com/jsapi');
         g_analytics.onerror = g_loader.onerror = function (message) {
          // This function needs documentation.
             console.error('Error:', message);
@@ -66,33 +66,27 @@
         };
         g_loader.onready = function (evt) {
          // This function needs documentation.
-            var options, temp;
-            options = global.encodeURI(JSON.stringify({
-                modules: [
-                    {
-                        name: 'jquery',
-                        version: '1.7.2'
-                    },
-                    {
-                        name: 'visualization',
-                        version: '1',
-                        packages: [
-                            'charteditor'
-                        ]
-                    }
+            if (global.hasOwnProperty('google') === false) {
+                return evt.stay('Awaiting the "google" object ...');
+            }
+            global.google.load('jquery', '1.7.2');
+            global.google.load('visualization', '1', {
+                packages: [
+                    'charteditor'
                 ]
-            }));
-            temp = Q.lib('//www.google.com/jsapi?autoload=' + options);
-            temp.onerror = function (message) {
-             // This function needs documentation.
-                return evt.fail(message);
-            };
-            temp.onready = function (temp_evt) {
-             // This function needs documentation.
-                temp_evt.exit();
-                return evt.exit();
-            };
-            return;
+            });
+            return evt.exit();
+        };
+        g_loader.onready = function (evt) {
+         // This function needs documentation.
+            if (global.hasOwnProperty('jQuery') === false) {
+                return evt.stay('Awaiting jQuery ...');
+            }
+            if (global.google.hasOwnProperty('visualization') === false) {
+                return evt.stay('Awaiting visualization module ...');
+            }
+            console.log('Welcome to the Lab :-)');
+            return evt.exit();
         };
         return;
     };
