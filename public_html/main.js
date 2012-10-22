@@ -1,7 +1,7 @@
 //- JavaScript source code
 
 //- main.js ~~
-//                                                      ~~ (c) SRW, 26 Jul 2012
+//                                                      ~~ (c) SRW, 22 Oct 2012
 
 (function (global) {
     'use strict';
@@ -11,6 +11,10 @@
     /*jslint devel: true, indent: 4, maxlen: 80, nomen: true */
 
  // Prerequisites
+
+    if (global.hasOwnProperty('google') === false) {
+        throw new Error('Google JSAPI is not loaded.');
+    }
 
     if (global.hasOwnProperty('QM') === false) {
         throw new Error('QMachine is not loaded.');
