@@ -12,17 +12,17 @@
 
  // Prerequisites
 
-    if (Object.prototype.hasOwnProperty('Q') === false) {
-        throw new Error('Method Q is missing.');
+    if (global.hasOwnProperty('QM') === false) {
+        throw new Error('QMachine is not loaded.');
     }
 
  // Declarations
 
-    var Q, draw_sample_chart;
+    var QM, draw_sample_chart;
 
  // Definitions
 
-    Q = Object.prototype.Q;
+    QM = global.QM;
 
     draw_sample_chart = function () {
      // This function needs documentation.
@@ -71,8 +71,8 @@
      // This function needs documentation.
         var first, g_analytics, g_loader;
         first = true;
-        g_analytics = Q.avar();
-        g_loader = Q.avar();
+        g_analytics = QM.avar();
+        g_loader = QM.avar();
         g_analytics.onerror = g_loader.onerror = function (message) {
          // This function needs documentation.
             if (first === true) {
@@ -85,9 +85,9 @@
          // This function loads Google Analytics.
             var temp;
             if (global.location.protocol === 'https:') {
-                temp = Q.lib('https://ssl.google-analytics.com/ga.js');
+                temp = QM.lib('https://ssl.google-analytics.com/ga.js');
             } else {
-                temp = Q.lib('http://www.google-analytics.com/ga.js');
+                temp = QM.lib('http://www.google-analytics.com/ga.js');
             }
             temp.onerror = function (message) {
              // This function needs documentation.
